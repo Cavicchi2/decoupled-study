@@ -1,17 +1,32 @@
-name: hello-drupal9
+name: drupal-react
 recipe: drupal9
 config:
-  webroot: .
+  webroot: drupal
+  php: "8.0"
+  composer_version: "2.2.12"
+  database: mysql
+proxy:
+  nodejs:
+    - node.lndo.site:3000
 services:
-  myservice:
-    type: php
-    build_as_root:
-      # Note that you will want to use the script for the major version of node you want to install
-      # See: https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions
-      - curl -sL https://deb.nodesource.com/setup_16.x | bash -
-      - apt-get install -y nodejs
+  appserver:
+    build:
+      - "cd /app/drupal && composer install"
+  nodejs:
+    type: node:16
+    ssl: true
+    build:
+      - cd /app/react-app && npm install
+    port:
+      - 3000
+    overrides:
+      ports: [3000:3000]
 tooling:
+  start-react:
+    service: nodejs
+    cmd:
+      - "cd /app/react-app && npm start"
   node:
-    service: myservice
+    service: nodejs
   npm:
-    service: myservice
+    service: nodejs
