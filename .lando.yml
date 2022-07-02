@@ -19,6 +19,8 @@ services:
       - cd /app/react-app && npm install
     port:
       - 3000
+    env_file:
+      - "/app/react-app/.env"
     overrides:
       ports: [3000:3000]
 tooling:
