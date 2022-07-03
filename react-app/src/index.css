@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -5,5 +9,9 @@
 
 html {
   height: 100vh;
-  background-color: darkgrey;
+  @apply bg-gray-200;
+}
+
+body, #root, section {
+  height: 100%;
 }
