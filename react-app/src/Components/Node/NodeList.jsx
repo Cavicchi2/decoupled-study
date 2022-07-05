@@ -1,43 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Article from './Article';
 
-class NodeList extends React.Component {
-  constructor() {
-    super();
-    this.state = this.getNodeList();
-  }
+function NodeList() {
+  const [value, setValue] = useState([]);
 
-  getNodeList = async() => {
-    const fetchString = `https://drupal-react.lndo.site/jsonapi/node/article`; 
-    // Retrieve article list.
-    const myHeaders = new Headers();
-  
-    const settings = {
-      method: 'GET',
-      headers: myHeaders,
-      mode: 'cors',
-      cache: 'default',
-    };
-  
-    const articleArray = await fetch(fetchString, settings).then(response => response.json()).then(function (data) {
-      return data.data;
-    });;
-  
-    this.setState({
-      Nodes: articleArray
-    });
-  }
+  useEffect(() => {
+    const getNodeList = async () => {
+      const fetchString = `https://drupal-react.lndo.site/jsonapi/node/article`; 
+      // Retrieve article list.
+      const myHeaders = new Headers();
+    
+      const settings = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default',
+      };
+    
+      const articleArray = await fetch(fetchString, settings).then(response => response.json()).then(function (data) {
+        return data.data;
+      });
 
-  render() {
-    return (
+      setValue(articleArray);
+    }
+
+    getNodeList();
+  }, []);
+
+  return (
     <ol className='max-h-80 overflow-auto border-2 border-black text-left px-5'>
-      {this.state.Nodes?.map((item, i) => {
-        return <li key={i} className='node-list'>
+      {value.map((item) => {
+        return <li key={item.id} className='node-list'>
           <Article item={item} />
         </li>
       })}
-    </ol>);
-  }
+    </ol>
+  )
 }
 
 export default NodeList;
