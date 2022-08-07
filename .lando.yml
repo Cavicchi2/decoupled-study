@@ -5,6 +5,8 @@ config:
   php: "8.0"
   composer_version: "2.2.12"
   database: mysql
+  xdebug: false
+  drush: true
 proxy:
   nodejs:
     - node.lndo.site:3000
@@ -16,7 +18,7 @@ services:
     type: node:16
     ssl: true
     build:
-      - cd /app/react-app && npm install
+      - "cd /app/react-app && npm install"
     port:
       - 3000
     env_file:
@@ -24,11 +26,22 @@ services:
     overrides:
       ports: [3000:3000]
 tooling:
+  php:
+    service: appserver
+    dir: /app/drupal
+  composer:
+    service: appserver
+    dir: /app/drupal
+  drush:
+    service: appserver
+    cmd: "/app/drupal/vendor/drush/drush/drush"
   start-react:
     service: nodejs
     cmd:
       - "cd /app/react-app && npm start"
   node:
     service: nodejs
+    dir: /app/react-app
   npm:
     service: nodejs
+    dir: /app/react-app
