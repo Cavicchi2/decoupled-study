@@ -23,7 +23,7 @@
         "drupal/core-vendor-hardening": "^9.4",
         "drupal/devel": "^4.1",
         "drupal/jsonapi_extras": "^3.20",
-        "drush/drush": "^11.0"
+        "drush/drush": "^11.1"
     },
     "conflict": {
         "drupal/drupal": "*"
