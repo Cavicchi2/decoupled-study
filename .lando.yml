@@ -12,12 +12,13 @@ proxy:
     - node.lndo.site:3000
 services:
   appserver:
-    build:
+    run:
       - "cd /app/drupal && composer install"
+      - "composer require 'drupal/devel:^5.0'"
   nodejs:
     type: node:16
     ssl: true
-    build:
+    run:
       - "cd /app/react-app && npm install"
     port:
       - 3000
@@ -39,6 +40,13 @@ tooling:
     service: nodejs
     cmd:
       - "cd /app/react-app && npm start"
+  start-drupal:
+    service: appserver
+    cmd:
+      - /app/drupal/vendor/drush/drush/drush si --db-url=mysql://drupal9:drupal9@database:3306/drupal9 --site-name=decoupled --account-pass=admin
+      - /app/drupal/vendor/drush/drush/drush en devel
+      - /app/drupal/vendor/drush/drush/drush en devel_generate
+      - /app/drupal/vendor/drush/drush/drush devel-generate:content
   node:
     service: nodejs
     dir: /app/react-app
