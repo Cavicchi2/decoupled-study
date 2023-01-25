@@ -46,3 +46,7 @@ sites/simpletest
 /modules/contrib/
 
 /themes/contrib/
+
+.idea
+
+composer.*
