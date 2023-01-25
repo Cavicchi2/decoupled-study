@@ -2,13 +2,13 @@ import React from 'react';
 import Article from './Article';
 
 class NodeList extends React.Component {
-  constructor() {
+  constructor(args) {
     super();
-    this.state = this.getNodeList();
+    this.state = this.getNodeList(args.type);
   }
 
-  getNodeList = async() => {
-    const fetchString = `https://drupal-react.lndo.site/jsonapi/node/article`; 
+  getNodeList = async(type) => {
+    const fetchString = `https://drupal-react.lndo.site/jsonapi/node/${type}`;
     // Retrieve article list.
     const myHeaders = new Headers();
   
