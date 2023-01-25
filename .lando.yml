@@ -47,6 +47,7 @@ tooling:
       - /app/drupal/vendor/drush/drush/drush en devel
       - /app/drupal/vendor/drush/drush/drush en devel_generate
       - /app/drupal/vendor/drush/drush/drush devel-generate:content
+      - /app/drupal/vendor/drush/drush/drush cr
   node:
     service: nodejs
     dir: /app/react-app
