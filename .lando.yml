@@ -43,10 +43,9 @@ tooling:
   start-drupal:
     service: appserver
     cmd:
-      - /app/drupal/vendor/drush/drush/drush si --db-url=mysql://drupal9:drupal9@database:3306/drupal9 --site-name=decoupled --account-pass=admin
-      - /app/drupal/vendor/drush/drush/drush en devel
-      - /app/drupal/vendor/drush/drush/drush en devel_generate
-      - /app/drupal/vendor/drush/drush/drush en jsonapi
+      - /app/drupal/vendor/drush/drush/drush si --db-url=mysql://drupal9:drupal9@database:3306/drupal9 --site-name=decoupled --account-pass=admin -y
+      - /app/drupal/vendor/drush/drush/drush en devel_generate -y
+      - /app/drupal/vendor/drush/drush/drush en jsonapi -y
       - /app/drupal/vendor/drush/drush/drush devel-generate:content
   node:
     service: nodejs
